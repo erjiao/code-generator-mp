@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
         JLabel dsTypeLabel = createRegularLabel("数据库驱动: ");
         panel.add(dsTypeLabel);
         JComboBox<String> dsType =
-                createRegularComboBox(Arrays.asList("com.mysql.cj.jdbc.Driver", "com.mysql.jdbc.Driver"));
+                createRegularComboBox(Arrays.asList("com.mysql.cj.jdbc.Driver"));
         panel.add(dsType);
 
 

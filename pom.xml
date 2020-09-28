@@ -68,6 +68,9 @@
                 <includes>
                     <include>**</include>
                 </includes>
+                <excludes>
+                    <exclude>logback.bak.xml</exclude>
+                </excludes>
             </resource>
             <resource>
                 <directory>templates</directory>
@@ -89,19 +92,19 @@
                 </configuration>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addClasspath>true</addClasspath>-->
-<!--                            <classpathPrefix>lib/</classpathPrefix>-->
-<!--                            <mainClass>com.llk.generator.Main</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.llk.generator.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
 <!--            <plugin>-->
 <!--                <groupId>org.apache.maven.plugins</groupId>-->
@@ -127,16 +130,18 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
+<!--                    <descriptorRefs>jar-with-dependencies</descriptorRefs>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>com.llk.generator.Main</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
                     <descriptors>
                         <descriptor>assembly/assembly.xml</descriptor>
                     </descriptors>
-<!--                    <descriptorRefs>jar-with-dependencies</descriptorRefs>-->
-                    <archive>
-                        <manifest>
-                            <mainClass>com.llk.generator.Main</mainClass>
-                        </manifest>
-                    </archive>
+
                     <finalName>${project.artifactId}-${project.version}</finalName>
+                    <!--去掉 assembly 里面指定的id -->
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
