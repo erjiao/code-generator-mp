@@ -87,6 +87,7 @@ public class MainFrame extends JFrame {
         panel.add(password);
 
         JLabel tableLabel = createRegularLabel("表名(多个逗号分隔)：");
+        tableLabel.setToolTipText("多个逗号分隔, 留空生成全部");
         panel.add(tableLabel);
         JTextField table = createRegularTextField("table");
         panel.add(table);
@@ -106,34 +107,39 @@ public class MainFrame extends JFrame {
         JTextField author = createRegularTextField("author");
         panel.add(author);
 
-        JLabel javaPathLabel = createRegularLabel("Java文件输出路径：");
-        panel.add(javaPathLabel);
-        JTextField javaPath = createRegularTextField("javaPath");
-        javaPath.setSize(javaPath.getWidth() - 80, javaPath.getHeight());
-        panel.add(javaPath);
+        JLabel projectDirLabel = createRegularLabel("项目路径：");
+        panel.add(projectDirLabel);
+        JTextField projectDir = createRegularTextField("projectDir");
+        panel.add(projectDir);
 
-        JButton javaPathButton = new JButton("浏览");
-        javaPathButton.setLocation(javaPath.getX() + javaPath.getWidth(), javaPath.getY());
-        javaPathButton.setSize(80, 30);
-        panel.add(javaPathButton);
-        javaPathButton.addActionListener(new ScannerActionListener(javaPath));
-
-
-        JLabel xmlPathLabel = createRegularLabel("xml文件输出路径：");
-        panel.add(xmlPathLabel);
-        JTextField xmlPath = createRegularTextField("xmlPath");
-        xmlPath.setSize(xmlPath.getWidth() - 80, xmlPath.getHeight());
-        panel.add(xmlPath);
-
-        JButton xmlPathButton = new JButton("浏览");
-        xmlPathButton.setLocation(xmlPath.getX() + xmlPath.getWidth(), xmlPath.getY());
-        xmlPathButton.setSize(80, 30);
-        panel.add(xmlPathButton);
-        xmlPathButton.addActionListener(new ScannerActionListener(xmlPath));
+//        JLabel javaPathLabel = createRegularLabel("Java文件输出路径：");
+//        panel.add(javaPathLabel);
+//        JTextField javaPath = createRegularTextField("javaPath");
+//        javaPath.setSize(javaPath.getWidth() - 80, javaPath.getHeight());
+//        panel.add(javaPath);
+//
+//        JButton javaPathButton = new JButton("浏览");
+//        javaPathButton.setLocation(javaPath.getX() + javaPath.getWidth(), javaPath.getY());
+//        javaPathButton.setSize(80, 30);
+//        panel.add(javaPathButton);
+//        javaPathButton.addActionListener(new ScannerActionListener(javaPath));
+//
+//
+//        JLabel xmlPathLabel = createRegularLabel("xml文件输出路径：");
+//        panel.add(xmlPathLabel);
+//        JTextField xmlPath = createRegularTextField("xmlPath");
+//        xmlPath.setSize(xmlPath.getWidth() - 80, xmlPath.getHeight());
+//        panel.add(xmlPath);
+//
+//        JButton xmlPathButton = new JButton("浏览");
+//        xmlPathButton.setLocation(xmlPath.getX() + xmlPath.getWidth(), xmlPath.getY());
+//        xmlPathButton.setSize(80, 30);
+//        panel.add(xmlPathButton);
+//        xmlPathButton.addActionListener(new ScannerActionListener(xmlPath));
 
 
         JButton button = new JButton("生成代码");
-        button.setLocation(xmlPathLabel.getX() + 200, xmlPathLabel.getY() + GAP_LOCATION_Y + 20);
+        button.setLocation(projectDirLabel.getX() + 200, projectDirLabel.getY() + GAP_LOCATION_Y + 20);
         button.setSize(150, 40);
         button.setFont(new Font("楷体", Font.BOLD, 16));
         button.addActionListener(e -> {
@@ -144,9 +150,10 @@ public class MainFrame extends JFrame {
             config.setPassword(password.getText().trim());
             config.setTable(table.getText().trim());
             config.setTablePrefix(prefix.getText().trim());
-            config.setJavaOutputDir(javaPath.getText().trim());
+            config.setJavaOutputDir(projectDir.getText().trim() + "/src/main/java");
             config.setPackageName(_package.getText().trim());
-            config.setXmlOutputDir(xmlPath.getText().trim());
+            config.setProjectDir(projectDir.getText().trim());
+            config.setXmlOutputDir(projectDir.getText().trim() + "/src/main/resources/mapper");
             config.setAuthor(author.getText().trim());
             log.info("{}", config);
 
@@ -168,8 +175,9 @@ public class MainFrame extends JFrame {
         prefix.setText(Configure.value("tablePrefix"));
         _package.setText(Configure.value("packageName"));
         author.setText(Configure.value("author"));
-        javaPath.setText(Configure.value("javaOutputDir"));
-        xmlPath.setText(Configure.value("xmlOutputDir"));
+        projectDir.setText(Configure.value("projectDir"));
+//        javaPath.setText(Configure.value("javaOutputDir"));
+//        xmlPath.setText(Configure.value("xmlOutputDir"));
 
         panel.add(button);
         setVisible(true);

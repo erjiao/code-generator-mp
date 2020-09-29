@@ -22,6 +22,8 @@ public class GenConfig {
 
     private String author;
 
+    private String projectDir;
+
     private String javaOutputDir;
 
     private String xmlOutputDir;
@@ -106,6 +108,14 @@ public class GenConfig {
         this.author = author;
     }
 
+    public String getProjectDir() {
+        return projectDir;
+    }
+
+    public void setProjectDir(String projectDir) {
+        this.projectDir = projectDir;
+    }
+
     @Override
     public String toString() {
         return "GenConfig{" +
@@ -117,6 +127,7 @@ public class GenConfig {
                 ", tablePrefix='" + tablePrefix + '\'' +
                 ", packageName='" + packageName + '\'' +
                 ", author='" + author + '\'' +
+                ", projectDir='" + projectDir + '\'' +
                 ", javaOutputDir='" + javaOutputDir + '\'' +
                 ", xmlOutputDir='" + xmlOutputDir + '\'' +
                 '}';

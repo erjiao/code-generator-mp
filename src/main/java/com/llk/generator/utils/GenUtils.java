@@ -104,7 +104,8 @@ public class GenUtils {
         // templateConfig.setEntity("templates/entity2.java");
         // templateConfig.setService();
         // templateConfig.setController();
-        templateConfig.setController("/templates/custom/controller.java");
+//        templateConfig.setController("/templates/custom/controller.java");
+        templateConfig.setController(null);
         templateConfig.setService("/templates/custom/service.java");
         templateConfig.setServiceImpl("/templates/custom/serviceImpl.java");
         templateConfig.setEntity("/templates/custom/entity.java");
@@ -134,6 +135,8 @@ public class GenUtils {
         strategy.setTablePrefix(config.getTablePrefix());
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+
+
         mpg.execute();
     }
 
