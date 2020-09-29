@@ -1,8 +1,10 @@
 package com.llk.generator.ui;
 
+import com.llk.generator.bean.DriverType;
 import com.llk.generator.bean.GenConfig;
 import com.llk.generator.utils.Configure;
 import com.llk.generator.utils.GenUtils;
+import com.llk.generator.utils.JdbcUrls;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +24,10 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +39,10 @@ import java.util.Objects;
 public class MainFrame extends JFrame {
 
     private static final Logger log = LoggerFactory.getLogger(MainFrame.class);
+
+    private static final String PG_JDBC_URL_TEMPLATE = "jdbc:postgresql://host:port/database?currentSchema=public";
+
+    private static final String MYSQL_JDBC_URL_TEMPLATE = "jdbc:mysql://host:port/database?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai";
 
     // 已经加入的label的数量
     private int labelCount = 0;
@@ -64,17 +70,30 @@ public class MainFrame extends JFrame {
         this.add(panel, BorderLayout.CENTER);
 
 
-        JLabel dsTypeLabel = createRegularLabel("数据库驱动: ");
+        JLabel dsTypeLabel = createRegularLabel("数据库类型: ");
         panel.add(dsTypeLabel);
         JComboBox<String> dsType =
-                createRegularComboBox(Arrays.asList("com.mysql.cj.jdbc.Driver","org.postgresql.Driver"));
+                createRegularComboBox(DriverType.getTypes());
         panel.add(dsType);
 
-
-        JLabel urlLabel = createRegularLabel("数据库url：");
+        JLabel urlLabel = createRegularLabel("jdbcUrl：");
         panel.add(urlLabel);
         JTextField url = createRegularTextField("url");
         panel.add(url);
+
+        dsType.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                String type = e.getItem().toString();
+                String urlText = url.getText().trim();
+                log.info("select ds type is {}, jdbcUrl: {}", type, urlText);
+                if (DriverType.getByType(type) == DriverType.MYSQL) {
+                    urlLabel.setToolTipText(MYSQL_JDBC_URL_TEMPLATE);
+                } else if (DriverType.getByType(type) == DriverType.POSTGRE_SQL) {
+                    urlLabel.setToolTipText(PG_JDBC_URL_TEMPLATE);
+                }
+//                url.setCaretPosition(0);
+            }
+        });
 
         JLabel userLabel = createRegularLabel("用户名：");
         panel.add(userLabel);
@@ -156,6 +175,7 @@ public class MainFrame extends JFrame {
             config.setProjectDir(projectDir.getText().trim());
             config.setXmlOutputDir(projectDir.getText().trim() + "/src/main/resources/mapper");
             config.setAuthor(author.getText().trim());
+            config.setSchema(JdbcUrls.getParameter(url.getText().trim()).get("currentSchema"));
             log.info("{}", config);
 
             try {
@@ -165,18 +185,20 @@ public class MainFrame extends JFrame {
                 PrintWriter pw = new PrintWriter(sw);
                 ex.printStackTrace(pw);
                 JOptionPane.showMessageDialog(null, sw.toString(), "错误", JOptionPane.ERROR_MESSAGE);
-                log.error("生成失败：", ex);
+                log.error("生成代码失败：", ex);
             }
         });
 
         // 获取配置, 添加默认值
-        url.setText(Configure.value("url"));
+        url.setText(Configure.value("jdbcUrl"));
         user.setText(Configure.value("username"));
         password.setText(Configure.value("password"));
         prefix.setText(Configure.value("tablePrefix"));
         _package.setText(Configure.value("packageName"));
         author.setText(Configure.value("author"));
         projectDir.setText(Configure.value("projectDir"));
+        dsType.setSelectedItem(Configure.value("dataSourceType"));
+
 //        javaPath.setText(Configure.value("javaOutputDir"));
 //        xmlPath.setText(Configure.value("xmlOutputDir"));
 

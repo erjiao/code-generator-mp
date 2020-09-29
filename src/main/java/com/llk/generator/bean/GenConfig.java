@@ -10,6 +10,8 @@ public class GenConfig {
 
     private String url;
 
+    private String schema;
+
     private String username;
 
     private String password;
@@ -116,11 +118,20 @@ public class GenConfig {
         this.projectDir = projectDir;
     }
 
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
     @Override
     public String toString() {
         return "GenConfig{" +
                 "dsType='" + dsType + '\'' +
                 ", url='" + url + '\'' +
+                ", schema='" + schema + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", table='" + table + '\'' +

@@ -14,7 +14,10 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.llk.generator.bean.DriverType;
 import com.llk.generator.bean.GenConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ import java.util.Objects;
  */
 public class GenUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(GenUtils.class);
 
     public static void generatorCode(GenConfig config) {
 
@@ -55,9 +59,10 @@ public class GenUtils {
         // jdbc:mysql://localhost:3306/ant?useUnicode=true&useSSL=false&characterEncoding=utf8
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl(config.getUrl())
-                .setDriverName(config.getDsType())
+                .setDriverName(DriverType.getByType(config.getDsType()).getDriver())
                 .setUsername(config.getUsername())
-                .setPassword(config.getPassword());
+                .setPassword(config.getPassword())
+                .setSchemaName(config.getSchema());
         mpg.setDataSource(dsc);
 
         // 包配置

@@ -1,6 +1,5 @@
 package com.llk.generator.utils;
 
-import com.llk.generator.ui.MainFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import java.util.Properties;
 
 public class Configure {
 
-	private static final Logger log = LoggerFactory.getLogger(MainFrame.class);
+	private static final Logger log = LoggerFactory.getLogger(Configure.class);
 
 	static Properties pp;
  
