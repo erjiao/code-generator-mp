@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
         JLabel dsTypeLabel = createRegularLabel("数据库驱动: ");
         panel.add(dsTypeLabel);
         JComboBox<String> dsType =
-                createRegularComboBox(Arrays.asList("com.mysql.cj.jdbc.Driver"));
+                createRegularComboBox(Arrays.asList("com.mysql.cj.jdbc.Driver","org.postgresql.Driver"));
         panel.add(dsType);
 
 
@@ -93,6 +93,7 @@ public class MainFrame extends JFrame {
         panel.add(table);
 
         JLabel prefixLabel = createRegularLabel("表名前缀：");
+        prefixLabel.setToolTipText("生成的类会去去掉表名前缀");
         panel.add(prefixLabel);
         JTextField prefix = createRegularTextField("prefix");
         panel.add(prefix);

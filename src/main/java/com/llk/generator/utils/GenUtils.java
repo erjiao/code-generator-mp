@@ -55,7 +55,7 @@ public class GenUtils {
         // jdbc:mysql://localhost:3306/ant?useUnicode=true&useSSL=false&characterEncoding=utf8
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl(config.getUrl())
-                .setDriverName("com.mysql.cj.jdbc.Driver")
+                .setDriverName(config.getDsType())
                 .setUsername(config.getUsername())
                 .setPassword(config.getPassword());
         mpg.setDataSource(dsc);

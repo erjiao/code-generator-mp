@@ -14,6 +14,7 @@
         <mybatis-generator.version>3.2.0</mybatis-generator.version>
         <freemarker.version>2.3.28</freemarker.version>
         <mysql.version>8.0.17</mysql.version>
+        <postgresql.version>42.2.12</postgresql.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
         </dependency>
 
         <dependency>
