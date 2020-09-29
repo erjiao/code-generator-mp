@@ -49,7 +49,6 @@ public class GenUtils {
                 .setBaseColumnList(true)
                 .setBaseResultMap(true)
                 .setServiceName("%sService");
-
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -120,6 +119,7 @@ public class GenUtils {
 //        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
+        strategy.setEntityTableFieldAnnotationEnable(true);
         // 公共父类
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
