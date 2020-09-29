@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author llk
@@ -123,7 +124,12 @@ public class GenUtils {
         // 写于父类中的公共字段
 //        strategy.setSuperEntityColumns("id");
 //        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setInclude(config.getTable().split(","));
+
+        // table 设置了值再使用指定配置
+        String table = config.getTable();
+        if (Objects.nonNull(table) && !table.trim().equals("")) {
+            strategy.setInclude(table.split(","));
+        }
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(config.getTablePrefix());
         mpg.setStrategy(strategy);

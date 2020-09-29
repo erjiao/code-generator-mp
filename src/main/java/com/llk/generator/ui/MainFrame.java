@@ -1,6 +1,7 @@
 package com.llk.generator.ui;
 
 import com.llk.generator.bean.GenConfig;
+import com.llk.generator.utils.Configure;
 import com.llk.generator.utils.GenUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,6 +160,17 @@ public class MainFrame extends JFrame {
                 log.error("生成失败：", ex);
             }
         });
+
+        // 获取配置, 添加默认值
+        url.setText(Configure.value("url"));
+        user.setText(Configure.value("username"));
+        password.setText(Configure.value("password"));
+        prefix.setText(Configure.value("tablePrefix"));
+        _package.setText(Configure.value("packageName"));
+        author.setText(Configure.value("author"));
+        javaPath.setText(Configure.value("javaOutputDir"));
+        xmlPath.setText(Configure.value("xmlOutputDir"));
+
         panel.add(button);
         setVisible(true);
 
