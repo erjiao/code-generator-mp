@@ -68,6 +68,7 @@ public class GenUtils {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(config.getPackageName());
+        pc.setMapper("dao");
         mpg.setPackageInfo(pc);
 
 
