@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public enum DriverType {
 
-    MYSQL("mysql", "com.mysql.cj.jdbc.Driver"),
-    POSTGRE_SQL("postgresql", "org.postgresql.Driver"),
+    MYSQL("mysql", "com.mysql.cj.jdbc.Driver", "jdbc:mysql://host:port/database?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai"),
+    POSTGRE_SQL("postgresql", "org.postgresql.Driver", "jdbc:postgresql://host:port/database?currentSchema=public"),
     ;
 
 
@@ -24,14 +24,17 @@ public enum DriverType {
         }
     }
 
-    DriverType(String type, String driver) {
+    DriverType(String type, String driver, String url) {
         this.type = type;
         this.driver = driver;
+        this.url = url;
     }
 
     private String type;
 
     private String driver;
+
+    private String url;
 
 
     public String getType() {
@@ -40,6 +43,10 @@ public enum DriverType {
 
     public String getDriver() {
         return driver;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public static List<String> getTypes() {

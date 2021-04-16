@@ -86,12 +86,16 @@ public class MainFrame extends JFrame {
                 String type = e.getItem().toString();
                 String urlText = url.getText().trim();
                 log.info("select ds type is {}, jdbcUrl: {}", type, urlText);
-                if (DriverType.getByType(type) == DriverType.MYSQL) {
-                    urlLabel.setToolTipText(MYSQL_JDBC_URL_TEMPLATE);
-                } else if (DriverType.getByType(type) == DriverType.POSTGRE_SQL) {
-                    urlLabel.setToolTipText(PG_JDBC_URL_TEMPLATE);
+
+                String defaultDsType = Configure.value("dataSourceType");
+
+                if (DriverType.getByType(type).getType().equals(defaultDsType)) {
+                    url.setText(Configure.value("jdbcUrl"));
+                } else {
+                    url.setText(DriverType.getByType(type).getUrl());
                 }
-//                url.setCaretPosition(0);
+
+                url.setCaretPosition(0);
             }
         });
 
