@@ -40,10 +40,6 @@ public class MainFrame extends JFrame {
 
     private static final Logger log = LoggerFactory.getLogger(MainFrame.class);
 
-    private static final String PG_JDBC_URL_TEMPLATE = "jdbc:postgresql://host:port/database?currentSchema=public";
-
-    private static final String MYSQL_JDBC_URL_TEMPLATE = "jdbc:mysql://host:port/database?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai";
-
     // 已经加入的label的数量
     private int labelCount = 0;
 

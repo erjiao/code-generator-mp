@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public enum DriverType {
 
-    MYSQL("mysql", "com.mysql.cj.jdbc.Driver", "jdbc:mysql://host:port/database?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai"),
+    MYSQL("mysql", "com.mysql.jdbc.Driver", "jdbc:mysql://host:port/database?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai"),
     POSTGRE_SQL("postgresql", "org.postgresql.Driver", "jdbc:postgresql://host:port/database?currentSchema=public"),
     ;
 
